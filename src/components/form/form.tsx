@@ -14,6 +14,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { useState } from "react"
 import { Progress } from "../ui/progress"
+import { Payment } from "./payment"
 
 export function Form() {
   const [count, setCount] = useState(1)
@@ -134,16 +135,7 @@ export function Form() {
         <>
         <div className="grid gap-4 py-4">
         <div className="grid  items-center gap-4">
-          <Label htmlFor="name" className="">
-            Email
-          </Label>
-          <Input
-              id="name"
-              placeholder="Type your email"
-              className="col-span-3"
-              onChange={(e)=>setName(e.target.value)}
-              value={name}
-              />
+          <Payment/>
         </div>
       </div>
       <DialogFooter>
