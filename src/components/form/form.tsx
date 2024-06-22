@@ -3,23 +3,64 @@
 import { Button } from "@/components/ui/button"
 import {
   Dialog,
+  DialogClose,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { useState } from "react"
 import { Progress } from "../ui/progress"
 import { Payment } from "./payment"
+import { CheckCircleIcon } from "lucide-react"
+import {z} from "zod"
+import { Email } from "./email"
+import { Adress } from "./adress"
 
-export function Form() {
+
+
+export function PaymentForm() {
   const [count, setCount] = useState(1)
-  const [progress, setProgress] = useState(25)
   const [name, setName] = useState('')
+  let progress = 0
+
+  switch(count) {
+    case 1:
+      progress = 25
+      break;
+    case 2:
+      progress = 50
+      break;
+    case 3:
+      progress = 75
+      break;
+    case 4:
+      progress = 100
+      break;
+  }
+
+  const formSchema = z.object({
+    name: z.string().min(2, 'write a a minimum range of 2 caracters').max(50, 'write a a maximum range of 50 caracters'),
+    email: z.string().email('write a correct email.'),
+    message: z.string().min(3, 'write a minumum range of 3 caracters.')
+  })
+  
+  const onSubmit = (values: z.infer<typeof formSchema>)=> {
+    console.log(values)
+  }
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -28,108 +69,25 @@ export function Form() {
       <DialogContent className="sm:max-w-[600px]">
         <DialogHeader>
           {count == 1 && 
-            <DialogTitle>Dados pessoais</DialogTitle>
+            <DialogTitle>Email</DialogTitle>
           }
           {count == 2 && 
-            <DialogTitle>Endereço de entrega</DialogTitle>
+            <DialogTitle>Adress</DialogTitle>
           }
           {count == 3 && 
-            <DialogTitle>Forma de pagamento</DialogTitle>
+            <DialogTitle>Payment method</DialogTitle>
           }
           {count == 4 && 
-            <DialogTitle>Envio para o WhatsApp</DialogTitle>
+            <DialogTitle>Concluded</DialogTitle>
           }
           <Progress value={progress}/>
+          
         </DialogHeader>
         {count === 1 &&
-        <>
-            <div className="grid gap-4 py-4">
-            <div className="grid  items-center gap-4">
-              <Label htmlFor="name" className="">
-                Email
-              </Label>
-              <Input
-                  id="name"
-                  placeholder="Type your email"
-                  className="col-span-3"
-                  onChange={(e)=>setName(e.target.value)}
-                  value={name}
-                  />
-            </div>
-          </div>
-          <DialogFooter>
-            <Button onClick={()=> {
-              setCount(2)
-              setProgress(50)
-              }} className="flex w-full" type="submit">Próximo</Button>
-          </DialogFooter>
-        </> 
+          <Email setCount={setCount}/>
         }
         {count === 2 &&
-        <>
-            <div className="grid grid-cols-2 gap-4 py-4">
-              <div className="grid  items-center gap-4">
-                <Label htmlFor="country" className="">
-                  Country
-                </Label>
-                <Input
-                    id="country"
-                    type=""
-                    className="col-span-3"
-                    />
-              </div>
-              <div className="grid  items-center gap-4">
-                <Label htmlFor="city" className="">
-                  City
-                </Label>
-                <Input
-                    id="city"
-                    className="col-span-3"
-                    />
-              </div>
-              <div className="grid  items-center gap-4">
-                <Label htmlFor="road" className="">
-                  Road
-                </Label>
-                <Input
-                    id="road"
-                    className="col-span-3"
-                    />
-              </div>
-              <div className="grid  items-center gap-4">
-                <Label htmlFor="numero" className="">
-                  Number
-                </Label>
-                <Input
-                    id="numero"
-                    className="col-span-3"
-                    />
-              </div>
-              <div className="grid  items-center gap-4">
-                <Label htmlFor="complemento" className="">
-                  Complement
-                </Label>
-                <Input
-                    id="complemento"
-                    className="col-span-3"
-                    />
-              </div>
-          </div>
-          <div className="flex items-center justify-between w-ful">
-          <button onClick={()=> {
-              setCount(1)
-              setProgress(25)
-              }} className="px-4 py-2">
-            voltar
-          </button>
-          <DialogFooter>
-            <Button onClick={()=> {
-              setCount(3)
-              setProgress(75)
-              }} className="flex w-full" type="submit">Próximo</Button>
-          </DialogFooter>
-          </div>
-        </> 
+          <Adress setCount={setCount}/>
         }
         {count === 3 &&
         <>
@@ -141,22 +99,23 @@ export function Form() {
       <DialogFooter>
       <button onClick={()=> {
               setCount(2)
-              setProgress(50)
               }} className="px-4 py-2 flex-1">
-            voltar
+            Back
           </button>
         <Button onClick={()=> {
           setCount(4)
-          setProgress(100)
-          }} className="flex-1 w-full" type="submit">Próximo</Button>
+          }} className="flex-1 w-full" type="submit">Next</Button>
       </DialogFooter>
     </>
         }
         {count === 4 &&
         <div className="flex flex-col items-center">
-          <p>Perfeito <b>{name}</b></p>
-          <p className="text-center mt-6">Agora envie seu pedido ao nosso WhatsApp para concluir. Nosso atendente irá guiar sobre o andamento do pedido</p>
-          <Button  className="w-full mt-4" type="submit">Próximo</Button>
+          <CheckCircleIcon size={50}/>
+          <p className="text-center mt-6">your products will arrive soon</p>
+          <DialogClose className="w-full">
+            <Button onClick={()=>{
+            }} className="w-full mt-4" type="submit">Finish</Button>
+          </DialogClose>
         </div>
         }
       </DialogContent>

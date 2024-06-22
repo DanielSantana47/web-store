@@ -1,12 +1,5 @@
 import { products } from "@/data/products"
-import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardFooter,
-    CardHeader,
-    CardTitle,
-  } from "@/components/ui/card"
+import {Card} from "@/components/ui/card"
 import { Button } from "../ui/button"
 import { PopUp } from "./popUp"
 

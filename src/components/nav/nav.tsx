@@ -21,7 +21,7 @@ export const Nav = ()=> {
             </div>
             <Sheet>
                 <SheetTrigger asChild>
-                    <Button className="flex gap-2 text-md"><SiAlienware className="text-lg"/> Carrinho</Button>
+                    <Button className="flex gap-2 text-md"><SiAlienware className="text-lg"/> Cart</Button>
                 </SheetTrigger>
                 <Menu/>
             </Sheet>

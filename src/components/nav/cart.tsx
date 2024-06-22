@@ -8,7 +8,7 @@ import {
   } from "@/components/ui/sheet"
 import { Button } from "../ui/button"
 import { Dialog, DialogContent, DialogTrigger } from "@radix-ui/react-dialog"
-import { Form } from "../form/form"
+import { PaymentForm } from "../form/form"
   
 
 export const Menu = ()=> {
@@ -24,7 +24,7 @@ export const Menu = ()=> {
                         <span>subtotal</span>
                         <span>$0,00</span>
                     </div>
-                    <Form/>
+                    <PaymentForm/>
                 </SheetDescription>
                 </SheetHeader>
             </SheetContent>
