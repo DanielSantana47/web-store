@@ -1,6 +1,5 @@
 import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import { useEffect } from "react"
 
 export const Payment = ()=> {
     return(

@@ -1,21 +1,14 @@
-import { CarFrontIcon } from "lucide-react";
-import { ThemeToggle } from "../theme/theme-toggle"
 import { Button } from "../ui/button"
-import { BsCartCheck } from "react-icons/bs";
 import { SiAlienware } from "react-icons/si";
 import {
     Sheet,
-    SheetContent,
-    SheetDescription,
-    SheetHeader,
-    SheetTitle,
     SheetTrigger,
   } from "@/components/ui/sheet"
 import { Menu } from "./cart";
 
 export const Nav = ()=> {
     return(
-        <nav className="flex items-center justify-between">
+        <nav className="container fixed top-0 left-0 right-0 py-4 flex items-center justify-between bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 z-50">
             <div className="flex items-center gap-4">
                 <h1 className="text-3xl">Web Store</h1>
             </div>

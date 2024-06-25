@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { Tabs } from "../ui/tabs";
 import { ProductCard } from "./productCard";
 import { products } from "@/data/products";
@@ -15,7 +14,7 @@ export function TabsNav() {
           <p className="text-xl md:text-4xl font-bold mb-8">Keyboard</p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {products.filter(item=> item.category == 'keyboard').map(item => (
-              <ProductCard id={item.id} image={item.image} name={item.name} price={item.price}/>
+              <ProductCard item={item}/>
             ))}
           </div>
         </div>
@@ -29,7 +28,7 @@ export function TabsNav() {
           <p className="text-xl md:text-4xl font-bold mb-8">Mouse</p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {products.filter(item=> item.category == 'mouse').map(item => (
-              <ProductCard id={item.id} image={item.image} name={item.name} price={item.price}/>
+              <ProductCard item={item}/>
             ))}
           </div>
         </div>
@@ -43,7 +42,7 @@ export function TabsNav() {
           <p className="text-xl md:text-4xl font-bold mb-8">Monitor</p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {products.filter(item=> item.category == 'monitor').map(item => (
-              <ProductCard id={item.id} image={item.image} name={item.name} price={item.price}/>
+              <ProductCard item={item}/>
             ))}
           </div>
         </div>

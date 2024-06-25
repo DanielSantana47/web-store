@@ -10,17 +10,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
 import { useState } from "react"
 import { Progress } from "../ui/progress"
 import { Payment } from "./payment"
@@ -28,6 +17,7 @@ import { CheckCircleIcon } from "lucide-react"
 import {z} from "zod"
 import { Email } from "./email"
 import { Adress } from "./adress"
+import { useStore } from "../store/cart-store"
 
 
 
@@ -56,15 +46,20 @@ export function PaymentForm() {
     email: z.string().email('write a correct email.'),
     message: z.string().min(3, 'write a minumum range of 3 caracters.')
   })
+
   
-  const onSubmit = (values: z.infer<typeof formSchema>)=> {
-    console.log(values)
+  const { cart, upsertCart } = useStore(state => state)
+  
+  const handleCloseFormButton = ()=> {
+    for (let item of cart) {
+      upsertCart(item.product, -Infinity)
+    }
   }
 
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button className="mx-auto mt-4">Finalizar compra</Button>
+        <Button className="mx-auto mt-4" disabled={cart.length <= 0}>Proceed to checkout</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[600px]">
         <DialogHeader>
@@ -113,8 +108,7 @@ export function PaymentForm() {
           <CheckCircleIcon size={50}/>
           <p className="text-center mt-6">your products will arrive soon</p>
           <DialogClose className="w-full">
-            <Button onClick={()=>{
-            }} className="w-full mt-4" type="submit">Finish</Button>
+            <Button onClick={handleCloseFormButton} className="w-full mt-4" type="submit">Finish</Button>
           </DialogClose>
         </div>
         }

@@ -1,29 +1,37 @@
+"use client"
+
 import {
-    Sheet,
     SheetContent,
     SheetDescription,
     SheetHeader,
     SheetTitle,
-    SheetTrigger,
   } from "@/components/ui/sheet"
-import { Button } from "../ui/button"
-import { Dialog, DialogContent, DialogTrigger } from "@radix-ui/react-dialog"
 import { PaymentForm } from "../form/form"
+import { useStore } from "../store/cart-store"
 import { CartItem } from "./cartItem"
   
 
 export const Menu = ()=> {
+
+    const { cart } = useStore(state => state)
+    let subtotal = 0
+    for (let item of cart) {
+        subtotal += item.quantity * item.product.price
+    }
+    
     return(
             <SheetContent>
                 <SheetHeader>
                 <SheetTitle>Cart</SheetTitle>
                 <SheetDescription className="flex flex-col">
-                    <div>
-                        <CartItem/>
+                    <div className="flex flex-col gap-4">
+                        {cart.map(item => (
+                            <CartItem item={item}/>
+                        ))}
                     </div>
-                    <div className="flex item-center justify-between">
+                    <div className="flex item-center justify-between mt-4">
                         <span>subtotal</span>
-                        <span>$0,00</span>
+                        <span>${subtotal},00</span>
                     </div>
                     <PaymentForm/>
                 </SheetDescription>
