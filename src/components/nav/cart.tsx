@@ -20,7 +20,7 @@ export const Menu = ()=> {
     }
     
     return(
-            <SheetContent>
+            <SheetContent className="overflow-y-scroll">
                 <SheetHeader>
                 <SheetTitle>Cart</SheetTitle>
                 <SheetDescription className="flex flex-col">
